@@ -2,18 +2,20 @@ package routing;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class NodeFactory implements Node{
 
     public long id;
     public double lat;
     public double lon;
-    public ArrayList<Edge> edges = new ArrayList<Edge>();
+    public List<Edge> edges;
 
     public NodeFactory(long id, double lat, double lon) {
         this.id = id;
         this.lat = lat;
         this.lon = lon;
+        this.edges = new ArrayList<Edge>();
     }
     
     @Override

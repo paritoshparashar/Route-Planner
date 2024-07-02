@@ -13,10 +13,10 @@ public class EdgeFactory implements Edge {
 
     public Direction dir;
     
-    public EdgeFactory(Node startNode, Node destinationNode, double length, boolean carSignal, boolean bikeSignal, boolean FootSignal, Direction dir) {
+    public EdgeFactory(Node startNode, Node destinationNode, boolean carSignal, boolean bikeSignal, boolean FootSignal, Direction dir) {
         this.startNode = startNode;
         this.destinationNode = destinationNode;
-        this.length = length;
+        this.length = 0.0;
 
         this.isCarAllowed = carSignal;
         this.isBikeAllowed = bikeSignal;
