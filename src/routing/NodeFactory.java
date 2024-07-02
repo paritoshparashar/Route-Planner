@@ -18,8 +18,7 @@ public class NodeFactory implements Node{
     
     @Override
     public Coordinate getCoordinate() {
-        // TODO Auto-generated method stub
-        return null;
+        return new Coordinate(this.lat, this.lon);
     }
 
     @Override

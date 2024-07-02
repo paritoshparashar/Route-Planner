@@ -27,11 +27,9 @@ public class EdgeFactory implements Edge {
     
     @Override
     public boolean allowsTravelType(TravelType tt, Direction dir) {
-        if (dir != this.dir) {
-            return false; 
-        }
-        else {
-            
+
+        if (dir == Direction.ANY || dir == this.dir) {
+           
             if (tt == TravelType.CAR) {
                 return this.isCarAllowed;
             } else if (tt == TravelType.BIKE) {
@@ -39,8 +37,13 @@ public class EdgeFactory implements Edge {
             } else if (tt == TravelType.FOOT) {
                 return this.isFootAllowed;
             } else {
-                return false;
+                return this.isCarAllowed || this.isBikeAllowed || this.isFootAllowed;
             }
+            
+        }
+        
+        else {
+            return false;
         }
 
     }
