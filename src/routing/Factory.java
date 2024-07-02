@@ -30,6 +30,10 @@ public class Factory {
 				String [] lineParts = line.split(" ");
 
 				if (lineParts[0].equals("N")) { // Node Read
+
+					if (lineParts.length != 4) {
+						throw new IOException();
+					}
 					long iD = Long.parseLong(lineParts[1]);
 					double lat = Double.parseDouble(lineParts[2]);
 					double lon = Double.parseDouble(lineParts[3]);
@@ -39,6 +43,10 @@ public class Factory {
 					graph.numNodes++;
 				}
 				else if (lineParts[0].equals("E")) { // Edge Read
+					
+					if (lineParts.length != 9) {
+						throw new IOException();
+					}
 					
 					long startNodeId = Long.parseLong(lineParts[1]);
 					long endNodeId = Long.parseLong(lineParts[2]);
