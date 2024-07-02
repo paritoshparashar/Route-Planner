@@ -117,9 +117,14 @@ public class GraphFactory implements Graph {
     //     }
     // }
 
-    public void addNodeToGraph ( Node node ) {
-        this.nodesGraph.put(node.getId(), node);
-        this.numNodes++;
-    }
+    public boolean convertToBoolean(int i) {
+		if (i == 1) {
+			return true;
+		} else if (i == 0) {
+			return false;
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
     
 }

@@ -34,21 +34,21 @@ public class Factory {
 					double lat = Double.parseDouble(lineParts[2]);
 					double lon = Double.parseDouble(lineParts[3]);
 
-					NodeFactory createdNode = new NodeFactory(iD, lat, lon);
-					graph.addNodeToGraph(createdNode);
+					Node createdNode = new NodeFactory(iD, lat, lon);
+					graph.nodesGraph.put(iD, createdNode);
 					graph.numNodes++;
-
 				}
 				else if (lineParts[0].equals("E")) { // Edge Read
 					
 					long startNodeId = Long.parseLong(lineParts[1]);
 					long endNodeId = Long.parseLong(lineParts[2]);
-					boolean forwardCar = (Integer.parseInt(lineParts[3]) == 1 ? true : false);
-					boolean backwardCar = (Integer.parseInt(lineParts[4]) == 1 ? true : false);
-					boolean forwardBike = (Integer.parseInt(lineParts[5]) == 1 ? true : false);
-					boolean backwardBike = (Integer.parseInt(lineParts[6]) == 1 ? true : false);
-					boolean forwardFoot = (Integer.parseInt(lineParts[7]) == 1 ? true : false);
-					boolean backwardFoot = (Integer.parseInt(lineParts[8]) == 1 ? true : false);
+
+					boolean forwardCar = graph.convertToBoolean(Integer.parseInt(lineParts[3]));
+					boolean backwardCar = graph.convertToBoolean(Integer.parseInt(lineParts[4]));
+					boolean forwardBike = graph.convertToBoolean(Integer.parseInt(lineParts[5]));
+					boolean backwardBike = graph.convertToBoolean(Integer.parseInt(lineParts[6]));
+					boolean forwardFoot = graph.convertToBoolean(Integer.parseInt(lineParts[7]));
+					boolean backwardFoot = graph.convertToBoolean(Integer.parseInt(lineParts[8]));
 
 					Node originNode = graph.getNode(startNodeId);
 					Node destinationNode = graph.getNode(endNodeId);
