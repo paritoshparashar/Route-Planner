@@ -32,20 +32,43 @@ public class GraphFactory implements Graph {
 
     @Override
     public Coordinate getNWCoordinate() {
-        // TODO Auto-generated method stub
-        return null;
+        
+        double maxLat = Double.MIN_VALUE;
+        double maxLong = Double.MIN_VALUE;
+
+        for (Node node : this.nodesGraph.values()) {
+            if (node.getCoordinate().getLatitude() > maxLat) {
+                maxLat = node.getCoordinate().getLatitude();
+            }
+            if (node.getCoordinate().getLongitude() > maxLong) {
+                maxLong = node.getCoordinate().getLongitude();
+            }
+        }
+
+        return new Coordinate(maxLat, maxLong);
     }
 
     @Override
     public Coordinate getSECoordinate() {
-        // TODO Auto-generated method stub
-        return null;
+         
+        double minLat = Double.MAX_VALUE;
+        double minLong = Double.MAX_VALUE;
+
+        for (Node node : this.nodesGraph.values()) {
+            if (node.getCoordinate().getLatitude() < minLat) {
+                minLat = node.getCoordinate().getLatitude();
+            }
+            if (node.getCoordinate().getLongitude() < minLong) {
+                minLong = node.getCoordinate().getLongitude();
+            }
+        }
+
+        return new Coordinate(minLat, minLong);
     }
 
     @Override
     public Iterator<Node> iterator() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.nodesGraph.values().iterator();
     }
 
     @Override
