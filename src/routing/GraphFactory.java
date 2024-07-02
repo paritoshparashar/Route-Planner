@@ -1,8 +1,5 @@
 package routing;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -103,6 +100,26 @@ public class GraphFactory implements Graph {
     public Node getNodeInUnderlyingGraph(long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getNodeInUnderlyingGraph'");
+    }
+
+    // public void tooString () {
+        
+    //     for (Node node : this.nodesGraph.values()) {
+    //         System.out.println("Node ID: " + node.getId());
+    //         System.out.println("Node Coordinate: " + node.getCoordinate().getLatitude() + ", " + node.getCoordinate().getLongitude());
+    //         System.out.println("Number of Edges: " + node.numEdges());
+    //         System.out.println("Edges: ");
+    //         for (Edge edge : node) {
+    //             System.out.println("Edge Length: " + edge.getLength());
+    //             System.out.println("Edge Start Node: " + edge.getStart().getId());
+    //             System.out.println("Edge End Node: " + edge.getEnd().getId());
+    //         }
+    //     }
+    // }
+
+    public void addNodeToGraph ( Node node ) {
+        this.nodesGraph.put(node.getId(), node);
+        this.numNodes++;
     }
     
 }

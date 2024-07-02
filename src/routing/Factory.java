@@ -3,7 +3,6 @@ package routing;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class Factory {
 
@@ -36,7 +35,7 @@ public class Factory {
 					double lon = Double.parseDouble(lineParts[3]);
 
 					NodeFactory createdNode = new NodeFactory(iD, lat, lon);
-					graph.nodesGraph.put(iD, createdNode);
+					graph.addNodeToGraph(createdNode);
 					graph.numNodes++;
 
 				}
@@ -44,22 +43,22 @@ public class Factory {
 					
 					long startNodeId = Long.parseLong(lineParts[1]);
 					long endNodeId = Long.parseLong(lineParts[2]);
-					boolean forwardCar = Boolean.parseBoolean(lineParts[3]);
-					boolean backwardCar = Boolean.parseBoolean(lineParts[4]);
-					boolean forwardBike = Boolean.parseBoolean(lineParts[5]);
-					boolean backwardBike = Boolean.parseBoolean(lineParts[6]);
-					boolean forwardFoot = Boolean.parseBoolean(lineParts[7]);
-					boolean backwardFoot = Boolean.parseBoolean(lineParts[8]);
+					boolean forwardCar = (Integer.parseInt(lineParts[3]) == 1 ? true : false);
+					boolean backwardCar = (Integer.parseInt(lineParts[4]) == 1 ? true : false);
+					boolean forwardBike = (Integer.parseInt(lineParts[5]) == 1 ? true : false);
+					boolean backwardBike = (Integer.parseInt(lineParts[6]) == 1 ? true : false);
+					boolean forwardFoot = (Integer.parseInt(lineParts[7]) == 1 ? true : false);
+					boolean backwardFoot = (Integer.parseInt(lineParts[8]) == 1 ? true : false);
 
 					Node originNode = graph.getNode(startNodeId);
 					Node destinationNode = graph.getNode(endNodeId);
 
 					if (originNode != null && destinationNode != null) {
-						EdgeFactory forwardEdge = new EdgeFactory(originNode, destinationNode, forwardCar, forwardBike, forwardFoot, Direction.FORWARD);
+						Edge forwardEdge = new EdgeFactory(originNode, destinationNode, forwardCar, forwardBike, forwardFoot, Direction.FORWARD);
 						originNode.addEdge(forwardEdge);
 						// graph.numEdges++; // Do i have to increment the number of edges here too?
 
-						EdgeFactory backwardEdge = new EdgeFactory(destinationNode, originNode, backwardCar, backwardBike, backwardFoot, Direction.BACKWARD);
+						Edge backwardEdge = new EdgeFactory(destinationNode, originNode, backwardCar, backwardBike, backwardFoot, Direction.BACKWARD);
 						destinationNode.addEdge(backwardEdge);
 						graph.numEdges++;
 					}
@@ -74,8 +73,9 @@ public class Factory {
 				}
 
 			}
-			
-			return graph;
+
+			return (Graph)graph;
+
 		} catch (IOException e) {
 			throw new IOException();
 		}
@@ -120,5 +120,14 @@ public class Factory {
 		// TODO: Implement me.
 		return null;
 	}
+
+	// public static void main(String[] args) {
+		
+	// 	try {
+	// 		createGraphFromMap("minimal.nae");
+	// 	} catch (IOException e) {
+	// 	System.err.println("Error: " + e.getMessage());
+	// 	}
+	// }
 
 }
