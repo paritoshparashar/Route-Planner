@@ -35,6 +35,9 @@ public class Factory {
 						throw new IOException();
 					}
 					long iD = Long.parseLong(lineParts[1]);
+					if (iD < 0 || iD >= Long.MAX_VALUE || graph.nodesGraph.containsKey(iD)) {
+						throw new IllegalArgumentException("Illegal node ID encountered: " + iD);
+					}
 					double lat = Double.parseDouble(lineParts[2]);
 					double lon = Double.parseDouble(lineParts[3]);
 

@@ -94,8 +94,30 @@ public class GraphFactory implements Graph {
 
     @Override
     public int removeUntraversableEdges(RoutingAlgorithm ra, TravelType tt) {
-        // TODO Auto-generated method stub
-        return 0;
+        
+        int numEdgesRemoved = 0;
+        Direction dir = Direction.FORWARD; // Default direction
+
+        if (ra.isBidirectional()){
+            dir = Direction.ANY;
+        }
+
+        for (Node node : this.nodesGraph.values()) {
+            int egdeCounterInsideNode = 0;
+
+            for (Edge edge : node) {
+
+                if (!edge.allowsTravelType(tt, dir)) {
+                    node.removeEdge(egdeCounterInsideNode);
+                    ++numEdgesRemoved;
+                }
+                ++egdeCounterInsideNode;
+
+            }
+        }
+
+        return numEdgesRemoved;
+        
     }
 
     @Override
