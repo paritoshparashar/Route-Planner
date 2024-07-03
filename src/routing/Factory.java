@@ -47,7 +47,7 @@ public class Factory {
 					if (lineParts.length != 9) {
 						throw new IOException();
 					}
-					
+
 					long startNodeId = Long.parseLong(lineParts[1]);
 					long endNodeId = Long.parseLong(lineParts[2]);
 
@@ -62,11 +62,11 @@ public class Factory {
 					Node destinationNode = graph.getNode(endNodeId);
 
 					if (originNode != null && destinationNode != null) {
-						Edge forwardEdge = new EdgeFactory(originNode, destinationNode, forwardCar, forwardBike, forwardFoot, Direction.FORWARD);
+						Edge forwardEdge = new EdgeFactory(originNode, destinationNode, forwardCar, backwardCar, forwardBike, backwardBike, forwardFoot, backwardFoot);
 						originNode.addEdge(forwardEdge);
 						// graph.numEdges++; // Do i have to increment the number of edges here too?
 
-						Edge backwardEdge = new EdgeFactory(destinationNode, originNode, backwardCar, backwardBike, backwardFoot, Direction.BACKWARD);
+						Edge backwardEdge = new EdgeFactory(destinationNode, originNode, backwardCar, forwardCar, backwardBike, forwardBike, backwardFoot, forwardFoot);
 						destinationNode.addEdge(backwardEdge);
 						graph.numEdges++;
 					}
@@ -129,13 +129,13 @@ public class Factory {
 		return null;
 	}
 
-	// public static void main(String[] args) {
+	public static void main(String[] args) {
 		
-	// 	try {
-	// 		createGraphFromMap("minimal.nae");
-	// 	} catch (IOException e) {
-	// 	System.err.println("Error: " + e.getMessage());
-	// 	}
-	// }
+		try {
+			createGraphFromMap("minimal.nae");
+		} catch (IOException e) {
+		System.err.println("Error: " + e.getMessage());
+		}
+	}
 
 }

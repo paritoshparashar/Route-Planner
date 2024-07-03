@@ -7,44 +7,71 @@ public class EdgeFactory implements Edge {
     public Node destinationNode;
     public double length;
 
-    public boolean isCarAllowed;
-    public boolean isBikeAllowed;
-    public boolean isFootAllowed;
+    public boolean isCarAllowedForward;
+    public boolean isCarAllowedBackward;
+    public boolean isBikeAllowedForward;
+    public boolean isBikeAllowedBackward;
+    public boolean isFootAllowedForward;
+    public boolean isFootAllowedBackward;
 
-    public Direction dir;
     
-    public EdgeFactory(Node startNode, Node destinationNode, boolean carSignal, boolean bikeSignal, boolean FootSignal, Direction dir) {
+    public EdgeFactory(Node startNode, Node destinationNode, boolean forwardCarSignal, boolean backwardCarSignal, boolean forwardBikeSignal, boolean backwardBikeSignal, boolean forwardFootSignal, boolean backwardFootSignal) {
         this.startNode = startNode;
         this.destinationNode = destinationNode;
         this.length = 0.0;
 
-        this.isCarAllowed = carSignal;
-        this.isBikeAllowed = bikeSignal;
-        this.isFootAllowed = FootSignal;
+        this.isCarAllowedForward = forwardCarSignal;
+        this.isCarAllowedBackward = backwardCarSignal;
+        this.isBikeAllowedForward = forwardBikeSignal;
+        this.isBikeAllowedBackward = backwardBikeSignal;
+        this.isFootAllowedForward = forwardFootSignal;
+        this.isFootAllowedBackward = backwardFootSignal;
 
-        this.dir = dir;
     }
     
     @Override
     public boolean allowsTravelType(TravelType tt, Direction dir) {
 
-        if (dir == Direction.ANY || dir == this.dir) {
+        if (dir == Direction.FORWARD) {
            
             if (tt == TravelType.CAR) {
-                return this.isCarAllowed;
+                return this.isCarAllowedForward;
             } else if (tt == TravelType.BIKE) {
-                return this.isBikeAllowed;
+                return this.isBikeAllowedForward;
             } else if (tt == TravelType.FOOT) {
-                return this.isFootAllowed;
+                return this.isFootAllowedForward;
             } else {
-                return this.isCarAllowed || this.isBikeAllowed || this.isFootAllowed;
+                return this.isCarAllowedForward || this.isBikeAllowedForward || this.isFootAllowedForward;
             }
-            
         }
         
+        else if (dir == Direction.BACKWARD) {
+                
+                if (tt == TravelType.CAR) {
+                    return this.isCarAllowedBackward;
+                } else if (tt == TravelType.BIKE) {
+                    return this.isBikeAllowedBackward;
+                } else if (tt == TravelType.FOOT) {
+                    return this.isFootAllowedBackward;
+                } else {
+                    return this.isCarAllowedBackward || this.isBikeAllowedBackward || this.isFootAllowedBackward;
+                }
+            }
+        else if (dir == Direction.ANY) {
+            if (tt == TravelType.CAR) {
+                return this.isCarAllowedForward || this.isCarAllowedBackward;
+            } else if (tt == TravelType.BIKE) {
+                return this.isBikeAllowedForward || this.isBikeAllowedBackward;
+            } else if (tt == TravelType.FOOT) {
+                return this.isFootAllowedForward || this.isFootAllowedBackward;
+            } else {
+                return this.isCarAllowedForward || this.isBikeAllowedForward || this.isFootAllowedForward || this.isCarAllowedBackward || this.isBikeAllowedBackward || this.isFootAllowedBackward;
+            }
+        }
         else {
             return false;
         }
+            
 
     }
 
