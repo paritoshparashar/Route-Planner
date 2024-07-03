@@ -80,8 +80,16 @@ public class GraphFactory implements Graph {
 
     @Override
     public int removeIsolatedNodes() {
-        // TODO Auto-generated method stub
-        return 0;
+        
+        int numNodesRemoved = 0;
+        for (Node node : this.nodesGraph.values()) {
+            if (node.numEdges() == 0) {
+                this.nodesGraph.remove(node.getId());
+                ++numNodesRemoved;
+            }
+        }
+
+        return numNodesRemoved;
     }
 
     @Override
