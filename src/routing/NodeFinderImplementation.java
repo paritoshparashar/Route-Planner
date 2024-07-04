@@ -98,13 +98,13 @@ public class NodeFinderImplementation implements NodeFinder {
                 int bottomRightRow = this.gridObj.getRow(bottomRight);
                 int bottomRightCol = this.gridObj.getCol(bottomRight);
 
-                
+
                 // Get the closest node, by comparing the closest node of each cell in the boundary box
                 ArrayList<Long> nodesInBoundaryCells = new ArrayList<>();
 
 
-                for (int i = topLeftRow; i <= bottomRightRow; i++) {
-                    for (int j = topLeftCol; j <= bottomRightCol; j++) {
+                for (int i = topLeftRow; i >= bottomRightRow; i--) {
+                    for (int j = topLeftCol; j >= bottomRightCol; j--) {
 
                         double currentMinDistance = 0.0;
 

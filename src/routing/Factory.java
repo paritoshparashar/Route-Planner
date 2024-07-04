@@ -101,8 +101,7 @@ public class Factory {
 	 * @return A node finder algorithm for that graph.
 	 */
 	public static NodeFinder createNodeFinder(Graph g) {
-		// TODO: Implement me.
-		return null;
+		return new NodeFinderImplementation(g);
 	}
 
 	/**

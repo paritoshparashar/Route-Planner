@@ -1016,4 +1016,11 @@ public class TestCampusMapRandomNodeFindingTests extends TestingBase {
 		;
 	}
 
+	// public static void main(String[] args) {
+
+	// 	// Create a test object and run a test
+	// 	TestCampusMapRandomNodeFindingTests test = new TestCampusMapRandomNodeFindingTests();
+	// 	test.testNodeFinding10RandomNodesInside();
+	// }
+
 }
