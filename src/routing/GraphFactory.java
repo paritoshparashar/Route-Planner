@@ -63,6 +63,20 @@ public class GraphFactory implements Graph {
         return new Coordinate(minLat, minLong);
     }
 
+    public Coordinate getNECoordinate() {
+        
+        Coordinate nw = this.getNWCoordinate();
+        Coordinate se = this.getSECoordinate();
+        return new Coordinate(nw.getLatitude(), se.getLongitude());
+    }
+
+    public Coordinate getSWCoordinate() {
+        
+        Coordinate nw = this.getNWCoordinate();
+        Coordinate se = this.getSECoordinate();
+        return new Coordinate(se.getLatitude(), nw.getLongitude());
+    }
+
     @Override
     public Iterator<Node> iterator() {
         return this.nodesGraph.values().iterator();
