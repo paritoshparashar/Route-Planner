@@ -9,13 +9,35 @@ public class NodeFactory implements Node{
     public long id;
     public double lat;
     public double lon;
+    private double weight;
+    private Node previous;
+
     public List<Edge> edges;
 
     public NodeFactory(long id, double lat, double lon) {
         this.id = id;
         this.lat = lat;
         this.lon = lon;
+        this.weight = Double.MAX_VALUE;
+        this.previous = null;
+
         this.edges = new ArrayList<Edge>();
+    }
+
+    public void setWeight(double w) {
+        this.weight = w;
+    }
+
+    public double getWeight() {
+        return this.weight;
+    }
+
+    public void setPrevious(Node n) {
+        this.previous = n;
+    }
+
+    public Node getPrevious() {
+        return this.previous;
     }
     
     @Override
