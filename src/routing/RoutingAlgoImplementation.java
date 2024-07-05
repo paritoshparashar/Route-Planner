@@ -33,7 +33,15 @@ public class RoutingAlgoImplementation implements RoutingAlgorithm{
         
         Node start_node = g.getNode(startId);
         Node end_node = g.getNode(endId);
-        return computeRouteLeg(g, start_node, end_node, tt);
+
+        if ( start_node == null || end_node == null) {
+            
+            throw new NoSuchRouteException();
+        }
+        else {
+            return computeRouteLeg(g, start_node, end_node, tt);
+        }
+        
     }
 
     @Override
