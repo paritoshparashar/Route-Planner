@@ -50,7 +50,7 @@ public class Grid {
         
         // Step 2 -> get the number of rows and columns of the grid based on number of nodes
         int numNodes = this.graph.numNodes();
-        int thresholdForNodesInEachCell = 100;
+        int thresholdForNodesInEachCell = 10;
         int numCells = (numNodes / thresholdForNodesInEachCell) + 1;
         int numRows = (int) Math.sqrt(numCells) + 1;
         int numCols = numRows;
