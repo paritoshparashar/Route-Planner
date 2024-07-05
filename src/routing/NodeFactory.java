@@ -11,6 +11,7 @@ public class NodeFactory implements Node{
     public double lon;
     private double weight;
     private Node previous;
+    private boolean visited;
 
     public List<Edge> edges;
 
@@ -18,12 +19,14 @@ public class NodeFactory implements Node{
         this.id = id;
         this.lat = lat;
         this.lon = lon;
+
         this.weight = Double.MAX_VALUE;
         this.previous = null;
+        this.visited = false;
 
         this.edges = new ArrayList<Edge>();
     }
-
+    
     public void setWeight(double w) {
         this.weight = w;
     }
@@ -38,6 +41,14 @@ public class NodeFactory implements Node{
 
     public Node getPrevious() {
         return this.previous;
+    }
+
+    public void setVisited(boolean v) {
+        this.visited = v;
+    }
+    
+    public boolean getVisited() {
+        return this.visited;
     }
     
     @Override
