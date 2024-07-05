@@ -5,19 +5,27 @@ import java.util.List;
 
 public class RoutingAlgoImplementation implements RoutingAlgorithm{
     
-    private Graph graph;
-    private Grid grid;
      
-    
-    public RoutingAlgoImplementation(Graph graph) {
-        this.graph = graph;
-        this.grid = new Grid(graph);
-     }
 
     @Override
     public Route computeRoute(Graph g, List<Node> nodes, TravelType tt) throws NoSuchRouteException {
-        // TODO Auto-generated method stub
-        return null;
+        
+        // Initialize the route
+        ArrayList<RouteLeg> routeParts = new ArrayList<RouteLeg>();
+        double distance = 0.0;
+        
+        // Compute the different route legs
+        for (int i = 0; i < nodes.size() - 1; i++) 
+        {
+            RouteLeg routeLeg = computeRouteLeg(g, nodes.get(i), nodes.get(i + 1), tt);
+            routeParts.add(routeLeg);
+            distance += routeLeg.getDistance();
+        }
+
+        // Create the route
+        RouteImplementation route = new RouteImplementation(distance, nodes.get(0), nodes.get(nodes.size() - 1), routeParts, tt);
+
+        return route;
     }
 
     @Override
@@ -54,29 +62,32 @@ public class RoutingAlgoImplementation implements RoutingAlgorithm{
 
                 for (Edge e : currentNode.edges) 
                 {
-                    NodeFactory neighborNode = (NodeFactory) e.getEnd();
-
-                    if (neighborNode.getVisited() == false) 
+                    if (e.allowsTravelType(tt, Direction.FORWARD))
                     {
+                        NodeFactory neighborNode = (NodeFactory) e.getEnd();
 
-                        // Calculate the distance between the two nodes
-                        double length = currentNode.getCoordinate().getDistance(neighborNode.getCoordinate());
-
-                        if (length < smallestEdgeLength) 
+                        if (neighborNode.getVisited() == false) 
                         {
-                            smallestEdgeLength = length;
-                            smallestNode = neighborNode;
+
+                            // Calculate the distance between the two nodes
+                            double length = currentNode.getCoordinate().getDistance(neighborNode.getCoordinate());
+
+                            if (length < smallestEdgeLength) 
+                            {
+                                smallestEdgeLength = length;
+                                smallestNode = neighborNode;
+                            }
+
+                            // Calculate the weight of the neighbor node
+                            double newWeight = currentNode.getWeight() + length;
+
+                            if (newWeight < neighborNode.getWeight()) 
+                            {
+                                neighborNode.setWeight(newWeight);
+                                neighborNode.setPrevious(currentNode);
+                            }
+
                         }
-
-                        // Calculate the weight of the neighbor node
-                        double newWeight = currentNode.getWeight() + length;
-
-                        if (newWeight < neighborNode.getWeight()) 
-                        {
-                            neighborNode.setWeight(newWeight);
-                            neighborNode.setPrevious(currentNode);
-                        }
-
                     }
                 }
 
