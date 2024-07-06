@@ -97,13 +97,20 @@ public class GraphFactory implements Graph {
 
     @Override
     public int removeIsolatedNodes() {
+
+        ArrayList<Node> isolatedNodes = new ArrayList<>();
         
         int numNodesRemoved = 0;
         for (Node node : this.nodesGraph.values()) {
             if (node.numEdges() == 0) {
-                this.nodesGraph.remove(node.getId());
                 ++numNodesRemoved;
+                isolatedNodes.add(node);
             }
+        }
+
+        for (Node node : isolatedNodes) {
+            this.nodesGraph.remove(node.getId());
+            this.numNodes--;
         }
 
         return numNodesRemoved;
@@ -141,6 +148,7 @@ public class GraphFactory implements Graph {
             if (edgeRmvList.size() > 0) {
                 for (int i = edgeRmvList.size() - 1; i >= 0; i--) {
                 node.removeEdge(edgeRmvList.get(i));
+                this.numEdges--;
                 }
             }
         }
