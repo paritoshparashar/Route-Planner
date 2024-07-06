@@ -49,6 +49,15 @@ public class RoutingAlgoImplementation implements RoutingAlgorithm{
     @Override
     public RouteLeg computeRouteLeg (Graph g, Node start_node, Node end_node, TravelType tt) throws NoSuchRouteException {
 
+        // Set the weight of all nodes to max and the previous node to null
+        for (Node n : g) 
+        {
+            NodeFactory node = (NodeFactory) n;
+            node.setWeight(Double.MAX_VALUE);
+            node.setPrevious(null);
+            node.setVisited(false);
+        }
+
         // Priority queue of the nodes with non-infinity weight, sorted by weight
 
         PriorityQueue<NodeFactory> priorityQueue = new PriorityQueue<>((n1, n2) -> Double.compare(n1.getWeight() ,n2.getWeight() )); 
