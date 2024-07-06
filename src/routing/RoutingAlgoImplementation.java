@@ -2,6 +2,8 @@ package routing;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
+
 
 public class RoutingAlgoImplementation implements RoutingAlgorithm{
     
@@ -47,6 +49,10 @@ public class RoutingAlgoImplementation implements RoutingAlgorithm{
     @Override
     public RouteLeg computeRouteLeg (Graph g, Node start_node, Node end_node, TravelType tt) throws NoSuchRouteException {
 
+        // Priority queue of the nodes with non-infinity weight, sorted by weight
+
+        PriorityQueue<NodeFactory> priorityQueue = new PriorityQueue<>((n1, n2) -> Double.compare(n1.getWeight() ,n2.getWeight() )); 
+
         NodeFactory startN = (NodeFactory) start_node;
         NodeFactory endN = (NodeFactory) end_node;
 
@@ -65,42 +71,51 @@ public class RoutingAlgoImplementation implements RoutingAlgorithm{
                  * * while doing so, keep track of the smallest weight
                 */
 
-                double smallestEdgeLength = Double.MAX_VALUE;
-                NodeFactory smallestNode = null;
-
                 for (Edge e : currentNode.edges) 
                 {
+                    if (e == null) {
+                        continue;
+                    }
+
                     if (e.allowsTravelType(tt, Direction.FORWARD))
                     {
                         NodeFactory neighborNode = (NodeFactory) e.getEnd();
 
                         if (neighborNode.getVisited() == false) 
                         {
+                            // Add the neighbor node to the priority queue if it is not already in it
+                            if (priorityQueue.contains(neighborNode) == false) 
+                            {
+                                priorityQueue.add(neighborNode);
+                            }
 
                             // Calculate the distance between the two nodes
                             double length = currentNode.getCoordinate().getDistance(neighborNode.getCoordinate());
-
-                            if (length < smallestEdgeLength) 
-                            {
-                                smallestEdgeLength = length;
-                                smallestNode = neighborNode;
-                            }
 
                             // Calculate the weight of the neighbor node
                             double newWeight = currentNode.getWeight() + length;
 
                             if (newWeight < neighborNode.getWeight()) 
                             {
+                                // Remove from queue, update weight and add back to queue
+                                priorityQueue.remove(neighborNode);
                                 neighborNode.setWeight(newWeight);
+                                priorityQueue.add(neighborNode);
+
                                 neighborNode.setPrevious(currentNode);
                             }
 
+                            
                         }
                     }
                 }
 
                 // Step 2 : Move to the node with the smallest weight
-                currentNode = smallestNode;
+                currentNode = priorityQueue.poll();
+                if (currentNode == null) 
+                {
+                    throw new NoSuchRouteException();
+                }
                 currentNode.setVisited(true);
                 
             }
