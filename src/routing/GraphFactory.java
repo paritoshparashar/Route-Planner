@@ -1,7 +1,10 @@
 package routing;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class GraphFactory implements Graph {
@@ -108,6 +111,7 @@ public class GraphFactory implements Graph {
 
     @Override
     public int removeUntraversableEdges(RoutingAlgorithm ra, TravelType tt) {
+
         
         int numEdgesRemoved = 0;
         Direction dir = Direction.FORWARD; // Default direction
@@ -117,16 +121,27 @@ public class GraphFactory implements Graph {
         }
 
         for (Node node : this.nodesGraph.values()) {
+
+            List<Integer> edgeRmvList = new ArrayList<>();
             int egdeCounterInsideNode = 0;
 
             for (Edge edge : node) {
 
                 if (!edge.allowsTravelType(tt, dir)) {
-                    node.removeEdge(egdeCounterInsideNode);
+                    // node.removeEdge(egdeCounterInsideNode);
+                    edgeRmvList.add(egdeCounterInsideNode);
                     ++numEdgesRemoved;
                 }
+
+                
                 ++egdeCounterInsideNode;
 
+            }
+
+            if (edgeRmvList.size() > 0) {
+                for (int i = edgeRmvList.size() - 1; i >= 0; i--) {
+                node.removeEdge(edgeRmvList.get(i));
+                }
             }
         }
 

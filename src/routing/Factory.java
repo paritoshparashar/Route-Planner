@@ -131,13 +131,4 @@ public class Factory {
 		return new RoutingAlgoImplementation();
 	}
 
-	// public static void main(String[] args) {
-		
-	// 	try {
-	// 		createGraphFromMap("minimal.nae");
-	// 	} catch (IOException e) {
-	// 	System.err.println("Error: " + e.getMessage());
-	// 	}
-	// }
-
 }
