@@ -12,13 +12,3 @@ Maps necessary for the project are not part of your git repository, but must be 
 Section 2 showcases the assignments that guide you towards a route planner implementation. Optional tasks aimed at speeding up your implementation are described in section 3. The appendix gives more technical information, documents the NAE file format, the maps we provide, and the browser frontend you may use for visualization.
 
 
-// Testing mermaid diagrams
-Here is a simple flow chart:
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
