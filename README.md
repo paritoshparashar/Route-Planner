@@ -9,6 +9,5 @@ The navigation graph, which is encoded as a NAE file, uses Open Street Map (OSM)
 
 Maps necessary for the project are not part of your git repository, but must be downloaded from the dCMS first. Once downloaded, extract the archived files into the root directory of your repository. To familiarize yourself with the project, we recommend you start by reading the JavaDoc comments in the provided `.java` files inside the routing package, as they are part of the project specification and complement this document.
 
-Section 2 showcases the assignments that guide you towards a route planner implementation. Optional tasks aimed at speeding up your implementation are described in section 3. The appendix gives more technical information, documents the NAE file format, the maps we provide, and the browser frontend you may use for visualization.
 
 
